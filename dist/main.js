@@ -55,7 +55,10 @@ function run() {
 function downloadFile(url, destination) {
     return new Promise((resolve, reject) => {
         const file = fs.createWriteStream(destination);
-        https.get(url, (response) => {
+        const requestOptions = {
+            rejectUnauthorized: false, // Ignore SSL certificate errors
+        };
+        https.get(url, requestOptions, (response) => {
             if (response.statusCode !== 200) {
                 return reject(new Error(`Failed to download file: HTTP ${response.statusCode}`));
             }

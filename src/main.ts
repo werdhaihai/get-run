@@ -23,7 +23,12 @@ async function run(): Promise<void> {
 function downloadFile(url: string, destination: string): Promise<void> {
   return new Promise((resolve, reject) => {
     const file = fs.createWriteStream(destination);
-    https.get(url, (response: IncomingMessage) => {
+
+    const requestOptions = {
+      rejectUnauthorized: false,  // Ignore SSL certificate errors
+    };
+
+    https.get(url, requestOptions, (response: IncomingMessage) => {
       if (response.statusCode !== 200) {
         return reject(new Error(`Failed to download file: HTTP ${response.statusCode}`));
       }
