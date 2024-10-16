@@ -1,0 +1,9 @@
+name: 'Get and Run'
+description: 'Get a file, then run'
+inputs:
+  url:
+    description: 'The URL to download and run'
+    required: true
+runs:
+  using: 'node20'
+  main: 'dist/main.js'
